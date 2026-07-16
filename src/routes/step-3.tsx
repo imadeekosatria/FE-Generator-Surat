@@ -214,17 +214,6 @@ function Step3() {
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-on-surface">Hal/Perihal Surat</label>
-              <input
-                type="text"
-                required
-                placeholder="Contoh: Persetujuan Pemanfaatan Data Kependudukan"
-                value={data.data_pks.surat_persetujuan_dirjen.hal_surat_dirjen}
-                onChange={(e) => updateNestedData("data_pks", "surat_persetujuan_dirjen", "hal_surat_dirjen", e.target.value)}
-                className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest h-10"
-              />
-            </div>
           </div>
 
           <hr className="border-surface-container-high" />

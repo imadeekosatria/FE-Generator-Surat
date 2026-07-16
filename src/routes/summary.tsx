@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useFormContext } from "../store";
-import { FileText, ChevronDown, ChevronUp, CheckCircle, AlertCircle } from "lucide-react";
+import { FileText, ChevronDown, ChevronUp, CheckCircle, AlertCircle, Copy, Check } from "lucide-react";
 
 export const Route = createFileRoute("/summary")({
   component: Summary,
@@ -13,6 +13,7 @@ function Summary() {
   const [showJson, setShowJson] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [result, setResult] = useState<{ success?: boolean; message?: string } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const getWilayahName = () => {
     if (data.kabupaten_nama) {
@@ -23,6 +24,18 @@ function Summary() {
     return "";
   };
 
+  const formatDateIndo = (dateStr: string) => {
+    if (!dateStr) return "";
+    const parts = dateStr.split("-");
+    if (parts.length !== 3) return dateStr;
+    const [year, month, day] = parts;
+    const months = [
+      "Januari", "Februari", "Maret", "April", "Mei", "Juni", 
+      "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    ];
+    return `${parseInt(day, 10)} ${months[parseInt(month, 10) - 1]} ${year}`;
+  };
+
   const payload: any = {
     wilayah: getWilayahName(),
     data_opd: data.data_opd,
@@ -31,7 +44,10 @@ function Summary() {
       waktu_pks: data.data_pks.waktu_pks,
       lokasi_pks: data.data_pks.lokasi_pks,
       tujuan_pks: data.data_pks.tujuan_pks,
-      surat_persetujuan_dirjen: data.data_pks.surat_persetujuan_dirjen,
+      surat_persetujuan_dirjen: {
+        ...data.data_pks.surat_persetujuan_dirjen,
+        tanggal_surat_dirjen: formatDateIndo(data.data_pks.surat_persetujuan_dirjen.tanggal_surat_dirjen)
+      },
       data_balikan: data.data_pks.data_balikan,
       jenis_layanan: data.data_pks.jenis_layanan,
     },
@@ -127,10 +143,11 @@ function Summary() {
         </h3>
         <div className="mb-6">
           <SummaryItem label="Tujuan PKS" value={data.data_pks.tujuan_pks} />
-          <SummaryItem label="Tanggal Mulai" value={data.data_pks.waktu_pks.tanggal_mulai} />
-          <SummaryItem label="Tanggal Selesai" value={data.data_pks.waktu_pks.tanggal_selesai} />
+          <SummaryItem label="Tanggal Mulai" value={formatDateIndo(data.data_pks.waktu_pks.tanggal_mulai)} />
+          <SummaryItem label="Tanggal Selesai" value={formatDateIndo(data.data_pks.waktu_pks.tanggal_selesai)} />
           <SummaryItem label="Lokasi PKS" value={data.data_pks.lokasi_pks} />
           <SummaryItem label="Nomor Surat Dirjen" value={data.data_pks.surat_persetujuan_dirjen.no_surat_dirjen} />
+          <SummaryItem label="Tanggal Surat Dirjen" value={formatDateIndo(data.data_pks.surat_persetujuan_dirjen.tanggal_surat_dirjen)} />
           <SummaryItem label="Data Balikan" value={data.data_pks.data_balikan} />
           <SummaryItem label="Jenis Layanan" value={data.data_pks.jenis_layanan} />
         </div>
@@ -184,8 +201,19 @@ function Summary() {
         </button>
         
         {showJson && (
-          <div className="mt-2 w-full bg-surface-container-lowest border border-outline-variant rounded-md overflow-hidden shadow-sm p-6">
-            <pre className="bg-surface-container p-4 rounded-md overflow-x-auto text-sm font-mono text-on-surface">
+          <div className="mt-2 w-full bg-surface-container-lowest border border-outline-variant rounded-md shadow-sm relative">
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="absolute top-4 right-4 p-2 bg-surface-container-high hover:bg-surface-container-highest rounded-md transition-colors text-on-surface-variant flex items-center justify-center"
+              title="Copy JSON"
+            >
+              {copied ? <Check size={16} className="text-primary" /> : <Copy size={16} />}
+            </button>
+            <pre className="bg-surface-container p-4 rounded-md overflow-x-auto text-sm font-mono text-on-surface pt-12">
               {JSON.stringify(payload, null, 2)}
             </pre>
           </div>
