@@ -1,10 +1,12 @@
-version: '3.8'
-
 services:
   app:
+    container_name: sipks-app
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - VITE_API_USERNAME=${VITE_API_USERNAME}
+        - VITE_API_PASSWORD=${VITE_API_PASSWORD}
     ports:
       - "3002:80"
     restart: unless-stopped
