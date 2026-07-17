@@ -1,9 +1,9 @@
 import React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Stepper } from "../components/Stepper";
-import { useFormContext } from "../store";
+import { Stepper } from "../../components/Stepper";
+import { useFormContext } from "../../store";
 
-export const Route = createFileRoute("/step-2")({
+export const Route = createFileRoute("/pks/step-2")({
   component: Step2,
 });
 
@@ -69,7 +69,7 @@ function Step2() {
         updateData("data_pks", "elemen_data", resItem.elemen_data);
       }
       
-      navigate({ to: "/step-3" });
+      navigate({ to: "/pks/step-3" });
     } catch (error: any) {
       setErrorDialog({
         show: true,
@@ -81,14 +81,14 @@ function Step2() {
   };
 
   const handleBack = () => {
-    navigate({ to: "/" });
+    navigate({ to: "/pks/step-1" });
   };
 
   return (
     <div className="w-full flex flex-col items-center mt-6">
       <div className="w-full max-w-3xl mb-4 text-center">
-        <h2 className="text-2xl font-bold text-on-surface mb-2">
-          Pembuatan Draft PKS
+        <h2 className="text-2xl font-bold text-primary mb-2">
+          Pembuatan Dokumen PKS
         </h2>
         <p className="text-sm text-on-surface-variant mb-6">
           Lengkapi informasi Organisasi Perangkat Daerah (OPD) untuk dokumen kerjasama.

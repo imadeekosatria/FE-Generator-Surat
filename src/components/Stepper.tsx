@@ -1,11 +1,16 @@
 import { Check } from "lucide-react";
 
 interface StepperProps {
+  type?: "pks" | "juknis";
   currentStep: number;
 }
 
-export function Stepper({ currentStep }: StepperProps) {
-  const steps = [
+export function Stepper({ currentStep, type = "pks" }: StepperProps) {
+  const steps = type === "juknis" ? [
+    { label: "Data Instansi & Wilayah", description: "Pihak Pertama" },
+    { label: "Teknis Jaringan", description: "Pihak Kedua" },
+    { label: "Elemen Data & PIC", description: "Detail" },
+  ] : [
     { label: "Data Dinas Dukcapil", description: "Pihak Pertama" },
     { label: "Data OPD", description: "Pihak Kedua" },
     { label: "Data PKS", description: "Detail Kerjasama" },

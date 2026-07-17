@@ -1,7 +1,7 @@
 import React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Stepper } from "../components/Stepper";
-import { useFormContext } from "../store";
+import { Stepper } from "../../components/Stepper";
+import { useFormContext } from "../../store";
 import { FileText } from "lucide-react";
 
 function toTerbilang(angka: number): string {
@@ -30,7 +30,7 @@ function toTerbilang(angka: number): string {
   return res.trim();
 }
 
-export const Route = createFileRoute("/step-3")({
+export const Route = createFileRoute("/pks/step-3")({
   component: Step3,
 });
 
@@ -101,18 +101,18 @@ function Step3() {
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate({ to: "/summary" });
+    navigate({ to: "/pks/summary" });
   };
 
   const handleBack = () => {
-    navigate({ to: "/step-2" });
+    navigate({ to: "/pks/step-2" });
   };
 
   return (
     <div className="w-full flex flex-col items-center mt-6">
       <div className="w-full max-w-3xl mb-4 text-center">
-        <h2 className="text-2xl font-bold text-on-surface mb-2">
-          Data PKS
+        <h2 className="text-2xl font-bold text-primary mb-2">
+          Pembuatan Dokumen PKS
         </h2>
         <p className="text-sm text-on-surface-variant mb-6">
           Lengkapi informasi spesifik Perjanjian Kerja Sama.
@@ -237,63 +237,40 @@ function Step3() {
             </div>
 
             {data.data_pks.jenis_layanan && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 p-6 bg-surface-container border border-outline-variant rounded-md">
-                <div className="md:col-span-2">
-                  <h4 className="text-sm font-medium text-on-surface mb-2">
-                    Kuota Akses Data (Jika relevan)
-                  </h4>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-on-surface">Jumlah (Bilangan)</label>
-                  <input
-                    type="number"
-                    placeholder="Contoh: 10000"
-                    value={
-                      data.data_pks.jenis_layanan === "WEB_SERVICE"
-                        ? data.data_pks.web_services.web_services_bil
-                        : data.data_pks.jenis_layanan === "WEB_PORTAL"
-                          ? data.data_pks.web_portal.web_portal_bil
-                          : data.data_pks.ikd.ikd_bil
-                    }
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      if (data.data_pks.jenis_layanan === "WEB_SERVICE") {
-                        updateNestedData("data_pks", "web_services", "web_services_bil", value);
-                      } else if (data.data_pks.jenis_layanan === "WEB_PORTAL") {
-                        updateNestedData("data_pks", "web_portal", "web_portal_bil", value);
-                      } else if (data.data_pks.jenis_layanan === "IKD") {
-                        updateNestedData("data_pks", "ikd", "ikd_bil", value);
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-sm font-medium text-on-surface">Jumlah Elemen</label>
+                    <input
+                      type="number"
+                      readOnly
+                      value={
+                        data.data_pks.jenis_layanan === "WEB_SERVICE"
+                          ? data.data_pks.web_services.web_services_bil
+                          : data.data_pks.jenis_layanan === "WEB_PORTAL"
+                            ? data.data_pks.web_portal.web_portal_bil
+                            : data.data_pks.ikd.ikd_bil
                       }
-                    }}
-                    className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest h-10"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-on-surface">Jumlah (Terbilang)</label>
-                  <input
-                    type="text"
-                    placeholder="Contoh: Sepuluh Ribu"
-                    value={
-                      data.data_pks.jenis_layanan === "WEB_SERVICE"
-                        ? data.data_pks.web_services.web_services_terbilang
-                        : data.data_pks.jenis_layanan === "WEB_PORTAL"
-                          ? data.data_pks.web_portal.web_portal_terbilang
-                          : data.data_pks.ikd.ikd_terbilang
-                    }
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      if (data.data_pks.jenis_layanan === "WEB_SERVICE") {
-                        updateNestedData("data_pks", "web_services", "web_services_terbilang", value);
-                      } else if (data.data_pks.jenis_layanan === "WEB_PORTAL") {
-                        updateNestedData("data_pks", "web_portal", "web_portal_terbilang", value);
-                      } else if (data.data_pks.jenis_layanan === "IKD") {
-                        updateNestedData("data_pks", "ikd", "ikd_terbilang", value);
+                      className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface-variant bg-surface-container h-10"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-sm font-medium text-on-surface">Terbilang</label>
+                    <input
+                      type="text"
+                      readOnly
+                      value={
+                        data.data_pks.jenis_layanan === "WEB_SERVICE"
+                          ? data.data_pks.web_services.web_services_terbilang
+                          : data.data_pks.jenis_layanan === "WEB_PORTAL"
+                            ? data.data_pks.web_portal.web_portal_terbilang
+                            : data.data_pks.ikd.ikd_terbilang
                       }
-                    }}
-                    className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest h-10"
-                  />
+                      className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface-variant bg-surface-container h-10"
+                    />
+                  </div>
                 </div>
-                <div className="md:col-span-2 flex flex-col gap-1.5 mt-2">
+                <div className="flex flex-col gap-1.5 mt-6">
                   <label className="text-sm font-medium text-on-surface mb-2">Elemen Data yang Diakses</label>
                   {loadingElemen ? (
                     <div className="text-sm text-on-surface-variant">Memuat elemen data...</div>
@@ -313,10 +290,9 @@ function Step3() {
                     </div>
                   )}
                 </div>
-              </div>
+              </>
             )}
           </div>
-
           {/* Action Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row justify-between items-center border-t border-surface-container-high pt-6 gap-4">
             <button
@@ -330,8 +306,7 @@ function Step3() {
               type="submit"
               className="w-full sm:w-auto px-6 py-2 bg-primary text-on-primary text-sm font-medium rounded-md hover:bg-primary-container transition-colors flex items-center justify-center gap-2"
             >
-              <FileText size={16} />
-              Generate Dokumen
+              Buat PKS <FileText size={16} />
             </button>
           </div>
         </form>
