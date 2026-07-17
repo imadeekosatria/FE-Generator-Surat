@@ -19,6 +19,16 @@ export default defineConfig(() => {
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
       proxy: {
+        '/api/generate-juknis': {
+          target: 'https://api.imadeeko.my.id',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/api/generate-pks': {
+          target: 'https://api.imadeeko.my.id',
+          changeOrigin: true,
+          secure: false,
+        },
         '/api': {
           target: 'https://django.imadeeko.my.id',
           changeOrigin: true,
