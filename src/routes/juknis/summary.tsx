@@ -57,7 +57,7 @@ function Summary() {
     setGenerating(true);
     setResult(null);
     try {
-      const res = await fetch("https://api.imadeeko.my.id/api/generate-juknis", {
+      const res = await fetch("/api/generate-juknis", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
