@@ -32,7 +32,7 @@ export function Header() {
             <h1 className="text-lg font-bold text-primary leading-tight">
               Kemendagri
             </h1>
-            <span className="text-xs text-on-surface-variant leading-tight mt-0.5 font-medium tracking-wide">
+            <span className="text-sm text-on-surface-variant leading-tight mt-0.5 font-medium tracking-wide">
               Direktorat Integrasi Data Kependudukan Daerah | Tim Wilayah IV
             </span>
           </div>
