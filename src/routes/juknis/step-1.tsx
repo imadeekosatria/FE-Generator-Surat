@@ -233,8 +233,7 @@ function Step1() {
               <input
                 id="nik_kepala_opd"
                 type="text"
-                required
-                placeholder="16 digit NIK"
+                placeholder="16 digit NIK (Opsional)"
                 value={data.juknis.data_opd.nik_kepala_opd || ""}
                 onChange={(e) => updateNestedData("juknis", "data_opd", "nik_kepala_opd", e.target.value.replace(/\D/g, ""))}
                 className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest h-10"
@@ -281,8 +280,7 @@ function Step1() {
               <input
                 id="nik_kadis_dukcapil"
                 type="text"
-                required
-                placeholder="16 digit NIK"
+                placeholder="16 digit NIK (Opsional)"
                 value={data.juknis.data_disdukcapil?.nik_kadis_dukcapil || ""}
                 onChange={(e) => updateNestedData("juknis", "data_disdukcapil", "nik_kadis_dukcapil", e.target.value.replace(/\D/g, ""))}
                 className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest h-10"
