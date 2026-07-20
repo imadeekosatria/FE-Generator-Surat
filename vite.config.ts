@@ -29,7 +29,7 @@ export default defineConfig(() => {
           changeOrigin: true,
           secure: false,
         },
-        '/api': {
+        '/api/v1': {
           target: 'https://django.imadeeko.my.id',
           changeOrigin: true,
           secure: false,
