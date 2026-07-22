@@ -70,6 +70,27 @@ function Step2() {
         updateData("data_pks", "elemen_data", resItem.elemen_data);
       }
       
+      if (resItem.jangka_waktu !== undefined && resItem.jangka_waktu !== null) {
+        const numStr = String(resItem.jangka_waktu).replace(/\D/g, "");
+        if (numStr) {
+          const num = parseInt(numStr, 10);
+          const toTerbilang = (angka: number): string => {
+            if (angka === 0) return "";
+            const bilangan = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
+            let res = "";
+            if (angka < 12) res = bilangan[angka];
+            else if (angka < 20) res = toTerbilang(angka - 10) + " Belas";
+            else if (angka < 100) res = toTerbilang(Math.floor(angka / 10)) + " Puluh" + (angka % 10 !== 0 ? " " + toTerbilang(angka % 10) : "");
+            return res.trim();
+          };
+          const terbilangStr = toTerbilang(num);
+          const formatted = `${num} (${terbilangStr}) Tahun`;
+          updateNestedData("data_pks", "waktu_pks", "jangka_waktu", formatted);
+        } else {
+          updateNestedData("data_pks", "waktu_pks", "jangka_waktu", String(resItem.jangka_waktu));
+        }
+      }
+      
       navigate({ to: "/pks/step-3" });
     } catch (error: any) {
       setErrorDialog({

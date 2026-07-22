@@ -192,7 +192,7 @@ function Summary() {
         </div>
       </div>
 
-      <div className="w-full">
+      <div className="w-full max-w-3xl mb-6">
         <button
           onClick={() => setShowJson(!showJson)}
           className="flex items-center justify-between w-full p-4 bg-surface-container-lowest border border-outline-variant rounded-md shadow-sm hover:bg-surface-container-low transition-colors"
