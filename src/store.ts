@@ -24,6 +24,7 @@ export interface DataDukcapil {
 export interface WaktuPks {
   tanggal_mulai: string;
   tanggal_selesai: string;
+  jangka_waktu: string;
 }
 
 export interface SuratPersetujuanDirjen {
@@ -178,6 +179,7 @@ export const initialData: PksFormData = {
     waktu_pks: {
       tanggal_mulai: "",
       tanggal_selesai: "",
+      jangka_waktu: "",
     },
     lokasi_pks: "",
     tujuan_pks: "",

@@ -12,7 +12,7 @@ function Step2() {
   const navigate = useNavigate();
 
   const [checking, setChecking] = React.useState(false);
-  const [errorDialog, setErrorDialog] = React.useState({ show: false, message: "" });
+  const [errorDialog, setErrorDialog] = React.useState({ show: false, message: "", canContinue: false });
 
   const handleNext = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +42,8 @@ function Step2() {
       if (resData.message && resData.message.includes("tidak ditemukan")) {
          setErrorDialog({
            show: true,
-           message: `Data tidak ditemukan, Anda tidak dapat melanjutkan tahap ini. Pastikan data sudah benar.\nPesan: ${resData.message}`
+           message: `Data tidak ditemukan. Anda dapat melanjutkan tahap ini, tetapi pastikan data sudah benar.\nPesan: ${resData.message}`,
+           canContinue: true
          });
          setChecking(false);
          return;
@@ -73,7 +74,8 @@ function Step2() {
     } catch (error: any) {
       setErrorDialog({
         show: true,
-        message: `Data tidak ditemukan, Anda tidak dapat melanjutkan tahap ini. Pastikan data sudah benar.\n\nDetail: ${error.message}`
+        message: `Terjadi kesalahan saat memeriksa data. Anda dapat melanjutkan tahap ini, tetapi pastikan data sudah benar.\n\nDetail: ${error.message}`,
+        canContinue: true
       });
     } finally {
       setChecking(false);
@@ -272,13 +274,24 @@ function Step2() {
             <p className="text-sm text-on-surface-variant whitespace-pre-line mb-6">
               {errorDialog.message}
             </p>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-3">
               <button
-                onClick={() => setErrorDialog({ show: false, message: "" })}
-                className="px-4 py-2 bg-primary text-on-primary text-sm font-medium rounded-md hover:bg-primary-container transition-colors"
+                onClick={() => setErrorDialog({ show: false, message: "", canContinue: false })}
+                className="px-4 py-2 border border-outline text-on-surface-variant text-sm font-medium rounded-md hover:bg-surface-container transition-colors"
               >
                 Tutup
               </button>
+              {errorDialog.canContinue && (
+                <button
+                  onClick={() => {
+                    setErrorDialog({ show: false, message: "", canContinue: false });
+                    navigate({ to: "/pks/step-3" });
+                  }}
+                  className="px-4 py-2 bg-primary text-on-primary text-sm font-medium rounded-md hover:bg-primary-container transition-colors"
+                >
+                  Tetap Lanjutkan
+                </button>
+              )}
             </div>
           </div>
         </div>

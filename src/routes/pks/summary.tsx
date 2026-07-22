@@ -145,6 +145,7 @@ function Summary() {
           <SummaryItem label="Tujuan PKS" value={data.data_pks.tujuan_pks} />
           <SummaryItem label="Tanggal Mulai" value={formatDateIndo(data.data_pks.waktu_pks.tanggal_mulai)} />
           <SummaryItem label="Tanggal Selesai" value={formatDateIndo(data.data_pks.waktu_pks.tanggal_selesai)} />
+          <SummaryItem label="Jangka Waktu" value={data.data_pks.waktu_pks.jangka_waktu} />
           <SummaryItem label="Lokasi PKS" value={data.data_pks.lokasi_pks} />
           <SummaryItem label="Nomor Surat Dirjen" value={data.data_pks.surat_persetujuan_dirjen.no_surat_dirjen} />
           <SummaryItem label="Tanggal Surat Dirjen" value={formatDateIndo(data.data_pks.surat_persetujuan_dirjen.tanggal_surat_dirjen)} />

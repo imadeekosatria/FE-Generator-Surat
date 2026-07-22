@@ -129,7 +129,7 @@ function Step3() {
           {/* Section 1: Waktu & Lokasi */}
           <div className="flex flex-col gap-6">
             <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">Waktu & Lokasi</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-medium text-on-surface">Tanggal Mulai PKS</label>
                 <input
@@ -147,6 +147,17 @@ function Step3() {
                   required
                   value={data.data_pks.waktu_pks.tanggal_selesai}
                   onChange={(e) => updateNestedData("data_pks", "waktu_pks", "tanggal_selesai", e.target.value)}
+                  className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest h-10"
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-medium text-on-surface">Jangka Waktu PKS</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Contoh: 5 (Lima) Tahun"
+                  value={data.data_pks.waktu_pks.jangka_waktu}
+                  onChange={(e) => updateNestedData("data_pks", "waktu_pks", "jangka_waktu", e.target.value)}
                   className="border border-outline-variant rounded-md px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest h-10"
                 />
               </div>
